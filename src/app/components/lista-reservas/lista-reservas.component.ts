@@ -53,6 +53,13 @@ export class ListaReservasComponent implements OnInit {
     });
   }
 
+  fecha(serviceId: any) {
+    const servicioEncontrado = this.services.find((s: any) => s.id === serviceId);
+    if (servicioEncontrado) {
+      return `${servicioEncontrado.departureDate} ${servicioEncontrado.departureTime}`;
+    }
+    return 'No disponible';
+  }
 
 }
 
