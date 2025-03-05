@@ -1,0 +1,76 @@
+<div class="container">
+  <h2 class="mb-4">Búsqueda de Servicios</h2>
+  
+  <form [formGroup]="searchForm" (ngSubmit)="buscarServicios()" class="mb-4">
+    <div class="row">
+      <div class="col-md-3">
+        <select formControlName="origen" class="form-select">
+          <option value="">Seleccione origen</option>
+          <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select formControlName="destino" class="form-select">
+          <option value="">Seleccione destino</option>
+          <option *ngFor="let city of cities" [value]="city.id">{{city.city}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input type="date" formControlName="fecha" class="form-control">
+      </div>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary" [disabled]="!searchForm.valid">
+          Buscar
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <form *ngIf="availableServices.length > 0" [formGroup]="reservaForm" (ngSubmit)="confirmarReserva()" class="mt-4">
+    <div class="mb-3">
+      <select formControlName="selectedService" class="form-select">
+        <option value="">Seleccione un servicio</option>
+        <option *ngFor="let service of availableServices" [value]="service.id">
+          Salida: {{service.departureDate}} {{service.departureTime}} - 
+          Llegada: {{service.arrivalDate}} {{service.arrivalTime}}
+        </option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <input type="text" formControlName="document" class="form-control" placeholder="Documento">
+      </div>
+      <div class="col-md-4">
+        <input type="text" formControlName="firstName" class="form-control" placeholder="Nombre">
+      </div>
+      <div class="col-md-4">
+        <input type="text" formControlName="lastName" class="form-control" placeholder="Apellido">
+      </div>
+    </div>
+
+    <h3 class="mt-4">Pasajeros Adicionales</h3>
+    <div formArrayName="passengers">
+      <div *ngFor="let passenger of passengers.controls; let i=index" [formGroupName]="i" class="row mt-2">
+        <div class="col-md-4">
+          <input type="text" formControlName="document" class="form-control" placeholder="Documento">
+        </div>
+        <div class="col-md-4">
+          <input type="text" formControlName="firstName" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="col-md-4">
+          <input type="text" formControlName="lastName" class="form-control" placeholder="Apellido">
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <button type="button" class="btn btn-secondary" (click)="agregarPasajero()">
+        Agregar Pasajero
+      </button>
+      <button type="submit" class="btn btn-primary ms-2" [disabled]="!reservaForm.valid">
+        Confirmar Reserva
+      </button>
+    </div>
+  </form>
+</div>

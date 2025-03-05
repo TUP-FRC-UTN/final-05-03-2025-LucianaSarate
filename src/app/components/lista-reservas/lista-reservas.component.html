@@ -1,0 +1,28 @@
+<div class="container text-center">
+  <h2>Lista de Pasajeros</h2>
+  
+  <div *ngIf="pasajerosList.length === 0" class="alert alert-info">
+    No hay pasajeros disponibles.
+  </div>
+
+  <table *ngIf="pasajerosList.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Código de Reserva</th>
+        <th>Documento</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Servicio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pasajero of pasajerosList">
+        <td>{{pasajero.reservationCode}}</td>
+        <td>{{pasajero.document}}</td>
+        <td>{{pasajero.firstName}}</td>
+        <td>{{pasajero.lastName}}</td>
+        <td>{{pasajero.service}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
